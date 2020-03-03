@@ -2,6 +2,7 @@ const getGeoInfo = require('./utils/geocode')
 const getTempInfo = require('./utils/tempreture')
 const yargs = require('yargs')
 
+let locationAddr = process.argv[2]
 const getWeatherInfo = (name, op) => {
 	const coorInfo = getGeoInfo(name, (x) => {
 		const tempInfo = getTempInfo(x, (y) => {
@@ -11,6 +12,12 @@ const getWeatherInfo = (name, op) => {
 	})
 }
 
-getWeatherInfo('Ahmedabad', (x) => {
-	console.log(x)
-})
+
+if (!locationAddr) {
+	console.log('Please provide an address / location')
+} else {
+	getWeatherInfo(locationAddr, (x) => {
+		console.log(x)
+	})
+}
+
